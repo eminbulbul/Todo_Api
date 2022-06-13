@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # third party apps
     # my apps
     "apiTodo",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
