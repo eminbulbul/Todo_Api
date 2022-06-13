@@ -26,8 +26,21 @@ def todoList(request):
 
 @api_view(['POST'])
 def todoCreate(request):
-    serializer = TodoSerializers(request.data)
+    serializer = TodoSerializers(data = request.data)
 
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+@api_view(['GET','POST'])
+def todoListCreate(request):
+    if request.method == 'GET':
+        queryset = Todo.objects.all()
+        serializer=TodoSerializers(queryset, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer=TodoSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
